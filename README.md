@@ -133,7 +133,43 @@ us@ubuntu:~$ ./6script.sh /home/us/netology/sysadm-homeworks/
 /home/us/netology/sysadm-homeworks/04-script-01-bash/README.md
 /home/us/netology/sysadm-homeworks/04-script-02-py/README.md
 ```
+В задании говорилось только о модифицированных файлах, если нужно получить информацию о всех статусах, то скрипт нужно дополнить:
+```python
+#!/usr/bin/env python3
+print("Введите полный путь к репозиторию(со знаком '/' в конце):")
+path = input()
 
+import os
+
+os.chdir(path)
+bash_command = ["git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        mod_result = result.replace('\tmodified:   ', '')
+        print("modified:"+path+mod_result)
+for result in result_os.split('\n'):
+    if result.find('new file') != -1:
+        new_result = result.replace('\tnew file:   ', '')
+        print("new file:"+path+new_result)
+for result in result_os.split('\n'):
+    if result.find('deleted') != -1:
+        del_result = result.replace('\tdeleted:   ', '')
+        print("deleted:"+path+del_result)
+```
+
+Вывод будет такой:
+```
+us@ubuntu:~$ ./4script.sh
+Введите полный путь к репозиторию(со знаком '/' в конце):
+/home/us/netology/sysadm-homeworks/
+modified:/home/us/netology/sysadm-homeworks/01-intro-01/netology.jsonnet
+modified:/home/us/netology/sysadm-homeworks/04-script-01-bash/README.md
+modified:/home/us/netology/sysadm-homeworks/04-script-02-py/README.md
+new file:/home/us/netology/sysadm-homeworks/3script_py.sh
+deleted:/home/us/netology/sysadm-homeworks/ 03-sysadmin-08-net/README.md
+```                                                                                                                                                                                                                                                                                                                                                                   
 ## Обязательная задача 4
 1. Наша команда разрабатывает несколько веб-сервисов, доступных по http. Мы точно знаем, что на их стенде нет никакой балансировки, кластеризации, за DNS прячется конкретный IP сервера, где установлен сервис. Проблема в том, что отдел, занимающийся нашей инфраструктурой очень часто меняет нам сервера, поэтому IP меняются примерно раз в неделю, при этом сервисы сохраняют за собой DNS имена. Это бы совсем никого не беспокоило, если бы несколько раз сервера не уезжали в такой сегмент сети нашей компании, который недоступен для разработчиков. Мы хотим написать скрипт, который опрашивает веб-сервисы, получает их IP, выводит информацию в стандартный вывод в виде: <URL сервиса> - <его IP>. Также, должна быть реализована возможность проверки текущего IP сервиса c его IP из предыдущей проверки. Если проверка будет провалена - оповестить об этом в стандартный вывод сообщением: [ERROR] <URL сервиса> IP mismatch: <старый IP> <Новый IP>. Будем считать, что наша разработка реализовала сервисы: `drive.google.com`, `mail.google.com`, `google.com`.
 
