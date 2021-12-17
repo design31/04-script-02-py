@@ -19,9 +19,7 @@ c = a + b
 ### Вопросы:
 | Вопрос  | Ответ |
 | ------------- | ------------- |
-| Какое значение будет присвоено переменной `c`?  | Traceback (most recent call last):
-  File "<input>", line 1, in <module>
-TypeError: unsupported operand type(s) for +: 'int' and 'str  |
+| Какое значение будет присвоено переменной `c`?  | Traceback (most recent call last):  File "<input>", line 1, in <module> TypeError: unsupported operand type(s) for +: 'int' and 'str  |
 | Как получить для переменной `c` значение 12?  | c=str(a)+b  |
 | Как получить для переменной `c` значение 3?  | c=a+int(b)  |
 
