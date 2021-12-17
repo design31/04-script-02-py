@@ -104,6 +104,34 @@ us@ubuntu:~$ ./4script.sh
 /home/us/new_repo/netology/README.md
 /home/us/new_repo/netology/netology.tf
 /home/us/new_repo/netology/netology.yaml
+```  
+    
+Или можно передавать путь к репозиторию аргументом:
+```
+#!/usr/bin/env python3
+
+import os
+import sys
+
+path = sys.argv[1]
+os.chdir(path)
+bash_command = ["git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:   ', '')
+        print(path+prepare_result)
+#        break
+    
+```
+    
+### Вывод скрипта при запуске при тестировании:
+```
+us@ubuntu:~$ ./6script.sh /home/us/netology/sysadm-homeworks/
+/home/us/netology/sysadm-homeworks/01-intro-01/netology.jsonnet
+/home/us/netology/sysadm-homeworks/04-script-01-bash/README.md
+/home/us/netology/sysadm-homeworks/04-script-02-py/README.md
 ```
 
 ## Обязательная задача 4
