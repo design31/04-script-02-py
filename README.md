@@ -107,7 +107,7 @@ us@ubuntu:~$ ./4script.sh
 ```  
     
 Или можно передавать путь к репозиторию аргументом:
-```
+```python
 #!/usr/bin/env python3
 
 import os
