@@ -175,12 +175,37 @@ deleted:/home/us/netology/sysadm-homeworks/ 03-sysadmin-08-net/README.md
 
 ### Ваш скрипт:
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import socket
+import json
+
+conf_file="config.json"
+
+with open(conf_file) as json_data_file:
+    conf = json.load(json_data_file)
+
+for host, ip in conf.items():
+    new_ip=socket.gethostbyname(host)
+
+    if (ip != new_ip):
+        print ('[ERROR] {} IP mismatch: {} {}'.format(host,ip,new_ip))
+        conf[host]=new_ip
+
+for host, ip in conf.items():
+    print('{} - {}'.format(host,ip))
+
+with open(conf_file, "w") as json_data_file:
+    json.dump(conf, json_data_file, indent=2)
 ```
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-???
+C:\Users\y.kozlov\PycharmProjects\pythonProject\venv\Scripts\python.exe C:/Users/y.kozlov/PycharmProjects/pythonProject/7.py
+drive.google.com - 74.125.131.194
+mail.google.com - 64.233.162.19
+google.com - 173.194.221.138
 ```
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
